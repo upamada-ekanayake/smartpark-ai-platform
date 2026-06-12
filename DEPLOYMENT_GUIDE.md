@@ -18,16 +18,23 @@ graph TD
 
 SmartPark AI utilizes **Neon Serverless PostgreSQL** for its persistence layer.
 
-### Step-by-Step Setup:
-1. **Create a Neon Project**:
-   - Log in to [Neon Console](https://console.neon.tech/).
-   - Click **Create New Project**. Set the name to `smartpark-prod` and select the preferred region close to your Cloud Run application.
-2. **Retrieve Connection String**:
-   - Navigate to the **Connection Details** section of your Neon Dashboard.
-   - Copy the connection string in the `PostgreSQL` format (e.g., `postgresql://user:password@ep-host-1234.region.neon.tech/neondb?sslmode=require`).
-3. **Configure Connection Sizing**:
-   - Because Neon is serverless and scales down to zero, Hikari connection pool limits should be configured carefully.
-   - Set maximum pool connections to `10` to avoid locking the pool in Neon during scaling events.
+### Step 1 — Get Your Neon Connection Details
+
+In Neon:
+1. Open your project.
+2. Click **Dashboard**.
+3. Copy:
+   - **Host**
+   - **Database Name**
+   - **Username**
+   - **Password**
+
+Your JDBC URL should look similar to:
+`jdbc:postgresql://ep-xxxxx.ap-southeast-1.aws.neon.tech/neondb?sslmode=require`
+
+### Step 2 — Configure Connection Sizing
+- Because Neon is serverless and scales down to zero, Hikari connection pool limits should be configured carefully.
+- Set maximum pool connections to `10` to avoid locking the pool in Neon during scaling events.
 
 ---
 

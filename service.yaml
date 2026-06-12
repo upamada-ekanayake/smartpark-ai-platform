@@ -1,0 +1,46 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: smartpark-backend
+  annotations:
+    run.googleapis.com/ingress: all
+spec:
+  template:
+    spec:
+      containers:
+        - image: gcr.io/YOUR_GCP_PROJECT_ID/smartpark-backend:latest
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 512Mi
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "prod"
+            - name: DB_URL
+              value: "jdbc:postgresql://YOUR_DB_HOST:5432/YOUR_DB_NAME?sslmode=require"
+            - name: DB_USER
+              value: "YOUR_DB_USER"
+            - name: DB_POOL_MAX
+              value: "10"
+            - name: DB_POOL_MIN
+              value: "2"
+            - name: JWT_EXPIRATION
+              value: "86400000"
+            - name: ALLOWED_ORIGINS
+              value: "https://YOUR_VERCEL_FRONTEND_DOMAIN.vercel.app"
+            - name: ENABLE_SWAGGER
+              value: "false"
+            
+            # Security Sensitive credentials loaded safely from Google Secret Manager
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: smartpark_db_password
+                  key: latest
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: smartpark_jwt_secret
+                  key: latest
