@@ -1,0 +1,11 @@
+# Root Git Ignore
+**/node_modules/
+**/target/
+.vscode/
+.idea/
+*.class
+*.log
+.DS_Store
+dist/
+build/
+bin/
