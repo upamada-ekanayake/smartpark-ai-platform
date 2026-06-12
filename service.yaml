@@ -19,9 +19,9 @@ spec:
             - name: SPRING_PROFILES_ACTIVE
               value: "prod"
             - name: DB_URL
-              value: "jdbc:postgresql://YOUR_DB_HOST:5432/YOUR_DB_NAME?sslmode=require"
+              value: "jdbc:postgresql://ep-lingering-term-ada10war-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require"
             - name: DB_USER
-              value: "YOUR_DB_USER"
+              value: "neondb_owner"
             - name: DB_POOL_MAX
               value: "10"
             - name: DB_POOL_MIN
